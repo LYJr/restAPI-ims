@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: ims
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    database: MYSQL
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ims?serverTimezone=UTC
+    username: root
+    password:
+    validation-query: SELECT 1
+
+handlebars:
+  suffix: .html
+  cache: false
+  expose-session-attributes: true
