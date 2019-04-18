@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public String create(UserDto userDto){
         userService.save(userDto);
         return "/index";

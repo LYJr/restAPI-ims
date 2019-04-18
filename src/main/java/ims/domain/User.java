@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Table
 @NoArgsConstructor
 public class User extends AbstractEntity {
-
     //size 걸어두기 //컬럼 확인
     private String userId;
     private String name;
@@ -27,5 +26,7 @@ public class User extends AbstractEntity {
     public UserDto _toUserDto(){
         return new UserDto(this.userId, this.name, this.password);
     }
+
+
 
 }
