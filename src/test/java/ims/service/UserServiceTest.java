@@ -1,9 +1,9 @@
 package ims.service;
 
 import ims.BaseTest;
-import ims.domain.User;
 import ims.domain.UserRepository;
 import ims.dto.UserDto;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,8 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -27,40 +28,58 @@ public class UserServiceTest extends BaseTest {
     private static final Logger log = getLogger(UserServiceTest.class);
     private static UserDto userDto = new UserDto("a", "resian", "1");
 
-    @Test
-    public void login_success() throws Exception {
-        when(userRepository.findByUserId(userDto._toUser().getUserId())).thenReturn(userDto._toUser());
 
-        assertThat(userService.findByUserId("a")).isEqualTo(userDto._toUser());
+    @Before
+    public void inputUser() {
+        log.debug("실행완료");
+        when(userRepository.findByUserId(userDto._toUser().getUserId())).thenReturn(Optional.of(userDto._toUser()));
+    }
+
+    @Test
+    public void login_success() {
+        assertThat(userService.findByUserId("a")).isEqualTo(Optional.of(userDto._toUser()));
 //        assertThat(userRepository.findByUserId(userDto._toUser().getUserId()).equals("a"));
     }
 
     @Test
-    public void loignCheck(){
+    public void loignOk() {
         String userId = "a";
+        String password = "1";
 
-        log.debug("login check:{}", userService.loginCheck(userId));
-        assertThat(userService.loginCheck(userId).isEqualTo(true));
+        assertThat(userService.login(userId, password)).isEqualTo(true);
     }
 
     @Test
-    public void notLoginCheck(){
+    public void 아이디다름() {
         String userId = "메롱";
-        log.debug("noLoign:{}", userService.logincheck(userId));
-        assertThat(userService.loginCheck(userId)).isEqualTo(false);
+        String password = "1";
+
+        assertThat(userService.login(userId, password)).isEqualTo(false);
     }
 
     @Test
-    public void update(){
+    public void 패스워드다름() {
+        String userId = "a";
+        String password = "1235";
+
+        assertThat(userService.login(userId, password)).isEqualTo(false);
+    }
+
+    @Test
+    public void update() {
+        String userId = "1";
         String name = "댕댕";
         String password = "12345";
-        //update from
 
-        log.debug("userRepo:{}",userRepository.findByUserId("a"));
-
-        User user = userService.update(name);
-
-        assertThat(user.getName()).isEqualTo(name);
-        assertThat(user.getPassword()).isEqualTo(password);
+        assertThat(userService.update(userId, name, password)).isEqualTo(userService.findByUserId(userId));
     }
+
+    @Test
+    public void delete(){
+        String userId = "a";
+        String password = "1";
+
+        assertThat(userService.delete(userId, password)).isEqualTo(true);
+    }
+
 }

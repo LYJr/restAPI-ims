@@ -22,5 +22,4 @@ public class UserDto {
     public User _toUser(){
         return new User(this.userId, this.name, this.password);
     }
-
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,7 +23,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findByUserId(String userId){
+    public Optional<User> findByUserId(String userId){
         return userRepository.findByUserId(userId);
     }
 
@@ -31,4 +32,17 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(null);
     }
 
+    public boolean login(String userId, String password) {
+        Optional<User> maybeUser = findByUserId(userId);
+        return maybeUser.isPresent() && maybeUser.get().isSamePassword(password);
+    }
+
+    public Optional<User> update(String userId, String name, String password) {
+        Optional<User> maybeUser = findByUserId(userId);
+        if(maybeUser.isPresent()){
+            maybeUser.get().updateName(name);
+            maybeUser.get().updatePassword(password);
+        }
+        return maybeUser;
+    }
 }

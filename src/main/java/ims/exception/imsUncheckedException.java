@@ -9,5 +9,4 @@ public class imsUncheckedException extends Exception{
     public imsUncheckedException (String message){
         super(message);
     }
-
 }
