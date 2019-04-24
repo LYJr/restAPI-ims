@@ -3,6 +3,7 @@ package ims.service;
 import ims.BaseTest;
 import ims.domain.UserRepository;
 import ims.dto.UserDto;
+import ims.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +12,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -82,5 +85,12 @@ public class UserServiceTest extends BaseTest {
         assertThat(userService.delete(userId, password)).isEqualTo(true);
     }
 
+    @Test
+    public void loginCheck() throws Exception{
+        HttpSession session = mock(HttpSession.class);
+        Long id = (long)1;
 
+        when(session.getAttribute("users")).thenReturn(Optional.of(userDto._toUser()));
+        assertThat(userService.loginCheck(id, session)).isEqualTo(true);
+    }
 }

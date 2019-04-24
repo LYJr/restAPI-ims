@@ -47,5 +47,7 @@ public class UserController {
 
 
         model.addAttribute("users", userService.findById(id));
+
+        return "/user/updateForm";
     }
 }
