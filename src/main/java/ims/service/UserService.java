@@ -6,6 +6,7 @@ import ims.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,6 @@ public class UserService {
     }
 
     public User findById(Long id){
-        //if문으로 들어온값 비교 후에 넘겨라.
         return userRepository.findById(id).orElseThrow(null);
     }
 
@@ -44,5 +44,13 @@ public class UserService {
             maybeUser.get().updatePassword(password);
         }
         return maybeUser;
+    }
+
+    public boolean delete(String userId, String password) {
+        Optional<User> maybeUser = findByUserId(userId);
+        if(maybeUser.isPresent()){
+            return maybeUser.get().deleteCheck(password);
+        }
+        return false;
     }
 }

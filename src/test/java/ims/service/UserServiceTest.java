@@ -82,4 +82,5 @@ public class UserServiceTest extends BaseTest {
         assertThat(userService.delete(userId, password)).isEqualTo(true);
     }
 
+
 }

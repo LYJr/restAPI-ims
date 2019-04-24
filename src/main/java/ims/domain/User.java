@@ -12,8 +12,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User extends AbstractEntity {
     //size 걸어두기 //컬럼 확인
+
+    @Column(nullable = false)
     private String userId;
+
+    @Column(nullable = false)
     private String name;
+
+
+    @Column(nullable = false)
     private String password;
 
     public User(String userId, String name, String password){
@@ -47,5 +54,9 @@ public class User extends AbstractEntity {
 
     private boolean nullCheck(String input){
         return input != null;
+    }
+
+    public boolean deleteCheck(String password) {
+        return this.password.equals(password);
     }
 }

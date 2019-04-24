@@ -34,4 +34,10 @@ public class UserControllerTest {
         ResponseEntity<String> response = template.getForEntity("/join", String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
+
+    @Test
+    public void updateForm(){
+        ResponseEntity<String> response = template.getForEntity("/users/update", String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
 }
