@@ -46,7 +46,7 @@ public class UserController {
     public String update(@PathVariable Long id, Model model, HttpSession session){
 
 
-        model.addAttribute("users", userService.findById(id));
+//        model.addAttribute("users", );
 
         return "/user/updateForm";
     }

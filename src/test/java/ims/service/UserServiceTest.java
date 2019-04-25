@@ -93,4 +93,15 @@ public class UserServiceTest extends BaseTest {
         when(session.getAttribute("users")).thenReturn(Optional.of(userDto._toUser()));
         assertThat(userService.loginCheck(id, session)).isEqualTo(true);
     }
+
+    @Test
+    public void logout(){
+        HttpSession session = mock(HttpSession.class);
+        String users = "users";
+
+        when(session.getAttribute("users")).thenReturn(Optional.of(userDto._toUser()));
+
+
+        assertThat(userService.logout(users)).nullValue;
+    }
 }

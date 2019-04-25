@@ -17,3 +17,4 @@ handlebars:
   suffix: .html
   cache: false
   expose-session-attributes: true
+#  세션에 담긴 데이터를 모델에 담아 템플릿 엔진에 전달해주는 것

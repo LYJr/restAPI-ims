@@ -5,6 +5,7 @@ import ims.domain.UserRepository;
 import ims.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,12 @@ public class UserService {
         if(maybeUser.isPresent()){
             return maybeUser.get().deleteCheck(password);
         }
+        return false;
+    }
+
+    public boolean loginCheck(Long id, HttpSession session) {
+        Object sessionUser = session.getAttribute("users");
+
         return false;
     }
 }
