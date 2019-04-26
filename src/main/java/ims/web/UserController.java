@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Optional;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Controller
@@ -29,25 +31,44 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(String userId, String password, HttpSession session, Model model) throws ImsUncheckedException {
-
+    public String login(String userId, String password, HttpSession session) throws ImsUncheckedException {
         if(!userService.login(userId, password)){
             throw new ImsUncheckedException("아이디나 비밀번호가 잘못되었습니다.");
         }
 
-        session.setAttribute("user", userService.findByUserId(userId));
+        Optional<User> maybeUser = userService.findByUserId(userId);
+        User user = maybeUser.orElseThrow(null);
+
+        log.debug("user확인:{}",user);
+        //리팩토링 가능할 것 같은데 흠..
+        session.setAttribute("user", user);
         //session에 userId에 해당하는 데이터를 담음
 
-        return "/index";
+        return "redirect:/";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/form")
     //url에서 파라미터 id를 호출하는 방식인 pathVariable
-    public String update(@PathVariable Long id, Model model, HttpSession session){
+    public String update(@PathVariable Long id, HttpSession session ,Model model){
+        log.debug("id확인:{}",id);
 
-
-//        model.addAttribute("users", );
-
+        if(!userService.loginCheck(id, session)){
+            return "redirect:/users/login";
+        }
+        //??????????????
+        User user = userService.findById(id);
+        model.addAttribute("users", user);
         return "/user/updateForm";
+    }
+//
+//    @PutMapping("/{id}"
+//
+//    )
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+//        userService.logout(session);
+        return "redirect:/";
     }
 }

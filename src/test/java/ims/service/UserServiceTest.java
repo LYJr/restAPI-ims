@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -94,14 +95,7 @@ public class UserServiceTest extends BaseTest {
         assertThat(userService.loginCheck(id, session)).isEqualTo(true);
     }
 
-    @Test
-    public void logout(){
-        HttpSession session = mock(HttpSession.class);
-        String users = "users";
-
-        when(session.getAttribute("users")).thenReturn(Optional.of(userDto._toUser()));
+    //remove는 returon type이 없어서 test가 불가능
 
 
-        assertThat(userService.logout(users)).nullValue;
-    }
 }

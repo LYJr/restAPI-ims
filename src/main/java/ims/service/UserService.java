@@ -16,6 +16,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private static final String SEEEIOND_USER = "user";
+
     public User save(UserDto userDto){
         return userRepository.save(userDto._toUser());
     }
@@ -55,8 +57,11 @@ public class UserService {
     }
 
     public boolean loginCheck(Long id, HttpSession session) {
-        Object sessionUser = session.getAttribute("users");
+        Object sessionUser = session.getAttribute(SEEEIOND_USER);
+        return sessionUser != null;
+    }
 
-        return false;
+    public void logout(HttpSession session) {
+        session.removeAttribute(SEEEIOND_USER);
     }
 }
