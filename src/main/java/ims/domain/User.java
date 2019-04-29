@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userId;
 
     @Column(nullable = false)
@@ -20,6 +20,8 @@ public class User extends AbstractEntity {
 
     @Column(nullable = false)
     private String password;
+
+    private int blackList;
 
     public User(String userId, String name, String password){
         super();
@@ -57,4 +59,5 @@ public class User extends AbstractEntity {
     public boolean deleteCheck(String password) {
         return this.password.equals(password);
     }
+
 }

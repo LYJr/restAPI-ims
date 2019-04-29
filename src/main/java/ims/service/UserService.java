@@ -3,12 +3,15 @@ package ims.service;
 import ims.domain.User;
 import ims.domain.UserRepository;
 import ims.dto.UserDto;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
 public class UserService {
@@ -17,6 +20,7 @@ public class UserService {
     private UserRepository userRepository;
 
     private static final String SEEEIOND_USER = "user";
+    private static final Logger log = getLogger(UserService.class);
 
     public User save(UserDto userDto){
         return userRepository.save(userDto._toUser());
@@ -39,13 +43,9 @@ public class UserService {
         return maybeUser.isPresent() && maybeUser.get().isSamePassword(password);
     }
 
-    public Optional<User> update(String userId, String name, String password) {
-        Optional<User> maybeUser = findByUserId(userId);
-        if(maybeUser.isPresent()){
-            maybeUser.get().updateName(name);
-            maybeUser.get().updatePassword(password);
-        }
-        return maybeUser;
+
+    public void logout(HttpSession session) {
+        session.removeAttribute(SEEEIOND_USER);
     }
 
     public boolean delete(String userId, String password) {
@@ -56,12 +56,10 @@ public class UserService {
         return false;
     }
 
-    public boolean loginCheck(Long id, HttpSession session) {
+
+
+    public boolean loginCheck(HttpSession session) {
         Object sessionUser = session.getAttribute(SEEEIOND_USER);
         return sessionUser != null;
-    }
-
-    public void logout(HttpSession session) {
-        session.removeAttribute(SEEEIOND_USER);
     }
 }

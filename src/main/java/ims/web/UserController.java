@@ -50,25 +50,33 @@ public class UserController {
     @GetMapping("/{id}/form")
     //url에서 파라미터 id를 호출하는 방식인 pathVariable
     public String update(@PathVariable Long id, HttpSession session ,Model model){
-        log.debug("id확인:{}",id);
-
-        if(!userService.loginCheck(id, session)){
+        if(!userService.loginCheck(session)){
             return "redirect:/users/login";
         }
-        //??????????????
-        User user = userService.findById(id);
+
+        User user = userService.findByUserId(((User) session.getAttribute("user")).getUserId()).orElseThrow(null);
+
+        log.debug("user:{}", user);
+
         model.addAttribute("users", user);
         return "/user/updateForm";
     }
-//
-//    @PutMapping("/{id}"
-//
-//    )
+
+    @PutMapping("/{id}")
+    public String updateForm(@PathVariable Long id, String name, String password, HttpSession session) throws ImsUncheckedException{
+
+
+        return "redirect:/";
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
 //        userService.logout(session);
+
         return "redirect:/";
     }
+
+    //        삭제시 boolean 값 return하는 메서드 생성 후 데이터 안보이게 하기
 }
