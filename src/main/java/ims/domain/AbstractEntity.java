@@ -16,4 +16,6 @@ public class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    //날짜 생성하기
 }

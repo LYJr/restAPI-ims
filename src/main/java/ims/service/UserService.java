@@ -18,6 +18,10 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Service
 public class UserService {
 
+    // TODO: 2019-04-30 delete html 생성 및 Controller 연결
+    // TODO: 2019-04-30 user login check-> 현재 들어온 데이터가 있는지만 확인했음
+    // TODO: 2019-04-30 html 중복제거
+
     @Autowired
     private UserRepository userRepository;
 
@@ -52,7 +56,6 @@ public class UserService {
 
        return userRepository.save(originUser);
     }
-
 
     public void logout(HttpSession session) {
         session.removeAttribute(SEEEIOND_USER);

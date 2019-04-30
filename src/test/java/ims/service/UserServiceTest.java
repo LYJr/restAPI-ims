@@ -69,11 +69,6 @@ public class UserServiceTest extends BaseTest {
     }
 
     @Test
-    public void update() {
-
-    }
-
-    @Test
     public void delete(){
         String userId = "a";
         String password = "1";
