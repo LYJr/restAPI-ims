@@ -62,10 +62,12 @@ public class UserController {
         return "/user/updateForm";
     }
 
-    @PutMapping("/{id}")
-    public String updateForm(@PathVariable Long id, String name, String password, HttpSession session) throws ImsUncheckedException{
+    @PutMapping("/{id}/updateForm")
+    public String updateForm(@PathVariable Long id, UserDto updateUser, HttpSession session) throws ImsUncheckedException{
+        //session에 값 다시 넣어야하나? 'ㅍ'?
+        //동일 사용자 check 나중에 생각하기
 
-
+        userService.update(id, updateUser);
         return "redirect:/";
     }
 
@@ -78,5 +80,5 @@ public class UserController {
         return "redirect:/";
     }
 
-    //        삭제시 boolean 값 return하는 메서드 생성 후 데이터 안보이게 하기
+
 }

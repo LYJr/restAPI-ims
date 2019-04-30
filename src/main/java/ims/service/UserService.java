@@ -6,6 +6,8 @@ import ims.dto.UserDto;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
@@ -43,6 +45,14 @@ public class UserService {
         return maybeUser.isPresent() && maybeUser.get().isSamePassword(password);
     }
 
+    public User update(@PathVariable Long id, UserDto updateUser) {
+        User originUser = findById(id);
+        originUser.updateName(updateUser.getName());
+        originUser.updatePassword(updateUser.getPassword());
+
+       return userRepository.save(originUser);
+    }
+
 
     public void logout(HttpSession session) {
         session.removeAttribute(SEEEIOND_USER);
@@ -56,10 +66,9 @@ public class UserService {
         return false;
     }
 
-
-
     public boolean loginCheck(HttpSession session) {
         Object sessionUser = session.getAttribute(SEEEIOND_USER);
         return sessionUser != null;
     }
+
 }
