@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IssueRepository extends JpaRepository<Long, Issue> {
+    Issue findBysSbject(String subject);
 }

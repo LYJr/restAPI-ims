@@ -13,6 +13,7 @@ public class IssueDto {
     private String subject;
     private String comment;
 
+
     public Issue _toIssue(){
         return new Issue(this.subject, this.comment);
     }
