@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table
 @Data
 @NoArgsConstructor
 public class Issue extends AbstractEntity{

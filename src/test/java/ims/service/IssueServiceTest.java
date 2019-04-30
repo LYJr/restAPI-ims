@@ -26,7 +26,6 @@ public class IssueServiceTest {
     @Before
     public void repositoryInput(){
         when(issueService.findBySubject(issueDto)).thenReturn(issueDto._toIssue());
-
     }
 
     @Test
