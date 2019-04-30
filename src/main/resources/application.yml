@@ -2,10 +2,14 @@ spring:
   application:
     name: ims
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       show-sql: true
     database: MYSQL
+
 
   datasource:
     url: jdbc:mysql://localhost:3306/ims?serverTimezone=UTC
@@ -17,3 +21,4 @@ handlebars:
   suffix: .html
   cache: false
   expose-session-attributes: true
+#  세션에 담긴 데이터를 모델에 담아 템플릿 엔진에 전달해주는 것

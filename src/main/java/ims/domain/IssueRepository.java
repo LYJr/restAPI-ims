@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUserId(String userId);
+public interface IssueRepository extends JpaRepository<Long, Issue> {
+    Optional<Issue> findBysSbject(String subject);
 }

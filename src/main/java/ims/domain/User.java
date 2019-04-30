@@ -12,10 +12,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User extends AbstractEntity {
 
-    //size 걸어두기 //컬럼 확인
+    @Column(nullable = false, unique = true)
     private String userId;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String password;
+
+    private int blackList;
 
     public User(String userId, String name, String password){
         super();
@@ -26,6 +32,32 @@ public class User extends AbstractEntity {
 
     public UserDto _toUserDto(){
         return new UserDto(this.userId, this.name, this.password);
+    }
+
+    public boolean isSamePassword(String password){
+        return this.password.equals(password);
+    }
+
+    public String updateName(String name){
+        if(nullCheck(name)){
+            return this.name = name;
+        }
+        return this.name;
+    }
+
+    public String updatePassword(String password){
+        if(nullCheck(password)){
+            return this.password = password;
+        }
+        return this.password;
+    }
+
+    private boolean nullCheck(String input){
+        return input != null;
+    }
+
+    public boolean deleteCheck(String password) {
+        return this.password.equals(password);
     }
 
 }

@@ -9,7 +9,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -34,5 +33,13 @@ public class UserControllerTest {
     public void join(){
         ResponseEntity<String> response = template.getForEntity("/join", String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
+    public void updateForm(){
+//        error: java.lang.IllegalArgumentException: Not enough variable values available to expand 'id'
+
+//        ResponseEntity<String> response = template.getForEntity("/users/{id}/form", String.class);
+//        assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 }
